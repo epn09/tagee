@@ -493,16 +493,13 @@ def calculateAttributes(derivatives):
                                   'GaussianCurvature', 'MinimalCurvature', 'MaximalCurvature', 'ShapeIndex'))
 
 
-def terrainAnalysis(dem: ee.Image, bbox: ee.Geometry | None = None) -> ee.Image:
+def terrainAnalysis(dem: ee.Image) -> ee.Image:
   """
   Calculate all terrain attributes for a given DEM and region.
 
     Parameters:
       dem (ee.Image): 
         An image representing elevation values.
-      bbox (ee.Geometry | None):
-        A geometry over which terrain attributes 
-        will be calculated.
 
     Returns:
       attributes (ee.Image): 
@@ -514,8 +511,7 @@ def terrainAnalysis(dem: ee.Image, bbox: ee.Geometry | None = None) -> ee.Image:
   parameters = calculateParameters(dem)
   derivatives = calculateDerivatives(parameters)
   attributes = calculateAttributes(derivatives)
-  if bbox is not None:
-    return attributes.clip(bbox)
+
   return(attributes)
 
 # Additional features
